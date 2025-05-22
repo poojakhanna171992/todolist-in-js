@@ -98,7 +98,48 @@ ul li span{
 ul li span:hover{
   background: #edeef0;
 }
+span.delete,
+span.edit {
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 0 5px;
+}
 
+span.delete {
+  color: red;
+  position: absolute;
+  right: 10px;
+}
+
+span.edit {
+  color: blue;
+  position: absolute;
+  right: 30px;
+}
+#clearAll{
+  cursor: pointer;
+  color: red;
+  float: right;
+}
+@media screen and (max-width: 480px) {
+  .input-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #input-box {
+    width: 100%;
+  }
+
+  .clear-btn {
+    align-self: flex-end;
+  }
+
+  ul#list-container li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 
 
 
