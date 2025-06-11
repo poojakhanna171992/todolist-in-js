@@ -7,23 +7,45 @@
     <link rel="stylesheet" href="todolist.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="todo-app">
-        <h2>To Do List <img src="images\icon.png" /></h2>
-        <div class="row">
-          <input type="text" id="input-box" placeholder="add your text" />
-          <button onclick="addtask()">ADD</button>
+    <!-- create container for todo list -->
+    <div id="todo-container" class="container">
+      <!-- todo header -->
+      <div id="header" class="todo-app">
+        <h1>To Do List <img src="images\icon.png" /></h1>
+
+        <!-- create input box -->
+        <div id="todo-form" class="input-area">
+          <input
+            type="text"
+            id="input-box"
+            name="input_box"
+            class="input-item"
+            placeholder="add your text"
+          />
+          <!-- add button -->
+          <button id="input-button" onclick="addTask()">ADD</button>
         </div>
-        <ul id="list-container">
-          <!-- <li class="checked">task1</li>
-        <li>task2</li>
-        <li>task3</li>
-        <li>task4</li>
-        <li>task5</li> -->
-        </ul>
-        <span id="clearAll" onclick="clearAllTasks()">🗑 Clear All</span>
+        <!-- task list -->
+        <h2>Task List</h2>
+        <ul id="list-container"></ul>
+
+        <hr />
+        <!-- task list counter -->
+        <div class="counter-container">
+          <div id="task-counters">
+            Completed: <span id="completed-counter">0</span> | Uncompleted:
+            <span id="uncompleted-counter">0</span>
+            <a
+              href="#"
+              onclick="clearAllTasks()"
+              style="color: red; text-decoration: underline"
+              >Clear All</a
+            >
+          </div>
+        </div>
       </div>
     </div>
-    <script src="todolist.js"></script>
+
+    <script type="text/javascript" src="todolist.js"></script>
   </body>
 </html>

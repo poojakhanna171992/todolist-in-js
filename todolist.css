@@ -1,148 +1,118 @@
-*{
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins',sans-serif;
-  box-sizing: border-box;
+ body { 
+  background: rgb(0,0,0);
+  background: radial-gradient(circle, rgba(0,0,0,0.028124999999999956) 0%, rgba(253,187,45,1) 100%);
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 50px;
 }
-.container{
-  width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(135deg,#153677,#4e0854);
-padding: 10px;
+#todo-container {
+  background: rgb(41, 33, 33);
+  width: 400px;
+  margin: 0 auto;
+  border: 2px solid #0033ff;
+  padding: 20px;
+  color: white;
+  border-radius: 15px;
 }
-.todo-app{
-  width: 100%;
-  max-width: 540px;
-  background: #fff;
-  margin: 100px auto 20px;
-  padding: 40px 30px 70px;
-  border: 10px;
+#header {
+  margin: 5px;
+  font-size: 20px;
+  text-align: center;
 }
-.todo-app h2{
-  color: #002765;
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+
+h1 {
+  margin-bottom: 20px; 
 }
-.todo-app h2 img{
+
+#input-box {
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+#input-button {
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.4s;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2e60ea;
+}
+
+#input-button:hover {
+  background-color: #9eb7fd; 
+}
+
+.todo-app h1 img{
   width: 30px;
   margin-left: 10px;
 }
-.row{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #edeef0;
-  border-radius: 30px;
-  padding-left: 20px;
-  margin-bottom: 20px;
-}
-input{
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  padding: 10px;
-  font-weight: 14px;
-  text-transform: uppercase;
-}
-button{
-  border: none;
-  outline: none;
-  padding: 16px 50px;
-  background: #ff5945;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 40px;
-}
-ul li{
+
+ ul {
   list-style: none;
-  font-size: 17px;
-  padding: 12px 8px 12px 50px;
-  user-select: none;
-  cursor: pointer;
-  position: relative;
-}
-ul li::before{
-  content: '';
-  position:absolute;
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  background-image: url(images/unchecked.png);
-  background-size: cover;
-  background-position: center;
-  top: 12px;
-  left: 8px;
-}
-ul li.checked{
-  color: #555;
-  text-decoration: line-through;
-}
-ul li.checked::before{
-  background-image: url(images/checked.png);
-}
-ul li span{
-  position: absolute;
-  right: 0;
-  top: 5px;
-  width: 40px;
-  height: 40px;
-  font-size: 22px;
-  color: #555;
-  line-height: 40px;
-  text-align: center;
-  border-radius: 50%
-}
-ul li span:hover{
-  background: #edeef0;
-}
-span.delete,
-span.edit {
-  cursor: pointer;
-  margin-left: 10px;
-  padding: 0 5px;
+  padding: 0;
+  margin-top: 20px;
+  text-align:left;
+
 }
 
-span.delete {
-  color: red;
-  position: absolute;
-  right: 10px;
+li {
+border: 1px solid white;
+border-radius: 5px;
+margin-bottom: 10px;
+padding: 10px;
+margin-top: 10px;
 }
 
-span.edit {
-  color: blue;
-  position: absolute;
-  right: 30px;
-}
-#clearAll{
-  cursor: pointer;
-  color: red;
+.edit-btn, .delete-btn {
   float: right;
+  color:crimson;
+  cursor: pointer;
+  margin: 3px 5px;
+  border: none;
+  padding: 3px 5px;
+  background: none;
+} 
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+  border: 1px solid gray;
 }
-@media screen and (max-width: 480px) {
-  .input-row {
-    flex-direction: column;
-    align-items: stretch;
+
+ /* ✅ Responsive Design */
+@media (max-width: 600px) {
+  #todo-container {
+    width: 95%;
+    padding: 15px;
   }
 
   #input-box {
     width: 100%;
+    margin-bottom: 10px;
+    font-size: 16px;
   }
 
-  .clear-btn {
-    align-self: flex-end;
+  #input-button {
+    width: 100%;
+    font-size: 16px;
   }
 
-  ul#list-container li {
+  li {
     flex-direction: column;
     align-items: flex-start;
+    gap: 8px;
   }
-}
 
-
-
+  .clear-link {
+    display: block;
+    text-align: center;
+  }
+  }
 
 
 

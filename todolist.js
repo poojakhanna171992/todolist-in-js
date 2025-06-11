@@ -1,68 +1,100 @@
-let inputbox = document.querySelector("#input-box");
-let listbox = document.querySelector("#list-container");
+let inputBox = document.querySelector("#input-box");
+let listBox = document.querySelector("#list-container");
+let completedCounter = document.getElementById("completed-counter");
+let uncompletedCounter = document.getElementById("uncompleted-counter");
 
-function addtask() {
-  if (inputbox.value === "") {
+let tasks = [];
+
+function addTask() {
+  const text = inputBox.value.trim();
+  if (!text) {
     alert("You must write something.");
-  } else {
+    return;
+  }
+  tasks.push({ text: text, completed: false });
+  inputBox.value = "";
+  saveData();
+  renderTask();
+}
+function renderTask() {
+  listBox.innerHTML = ""; // clear existing list
+
+  tasks.forEach((task, index) => {
     let li = document.createElement("li");
-    // Create text node instead of using innerHTML
-    let taskText = document.createTextNode(inputbox.value);
-    li.appendChild(taskText);
+    if (task.completed) li.classList.add("completed");
 
-    //create span for delete
-    let deleteSpan = document.createElement("span");
-    deleteSpan.innerHTML = "\u00d7";
-    deleteSpan.className = "delete";
+    // Checkbox
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.completed;
+    // checkbox listener
+    checkbox.addEventListener("change", function () {
+      task.completed = checkbox.checked;
+      saveData();
+      renderTask(); // re-render after change
+    });
 
-    //create span for edit
+    //  Task text
+    let taskText = document.createTextNode(task.text);
+    if (task.completed) {
+      li.classList.add("completed");
+    }
+
+    // Edit button
     let editSpan = document.createElement("span");
-    editSpan.innerHTML = "\u270E"; //edit symbol
-    editSpan.className = "edit";
+    editSpan.innerHTML = "Edit";
+    editSpan.className = "edit-btn";
+    editSpan.onclick = () => {
+      let newText = prompt("Edit your task:", task.text);
+      if (newText && newText.trim() !== "") {
+        task.text = newText.trim();
+        saveData();
+        renderTask();
+      }
+    };
 
-    //append both to the li
+    // Delete button
+    let deleteSpan = document.createElement("span");
+    deleteSpan.innerHTML = "Delete";
+    deleteSpan.className = "delete-btn";
+    deleteSpan.onclick = () => {
+      tasks.splice(index, 1);
+      saveData();
+      renderTask();
+    };
+    li.appendChild(checkbox);
+    li.appendChild(taskText);
     li.appendChild(editSpan);
     li.appendChild(deleteSpan);
+    listBox.appendChild(li);
+  });
+  updateCounters();
+}
 
-    listbox.appendChild(li);
+function updateCounters() {
+  const completed = tasks.filter((task) => task.completed).length;
+  const uncompleted = tasks.length - completed;
+  completedCounter.textContent = completed;
+  uncompletedCounter.textContent = uncompleted;
+}
+
+function saveData() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+function loadData() {
+  const stored = localStorage.getItem("tasks");
+  if (stored) {
+    tasks = JSON.parse(stored);
+    renderTask();
   }
-  inputbox.value = "";
-  savedata();
 }
 
-listbox.addEventListener(
-  "click",
-  function (e) {
-    if (e.target.tagName === "LI") {
-      e.target.classList.toggle("checked");
-      savedata();
-    } else if (e.target.classList.contains("delete")) {
-      e.target.parentElement.remove();
-      savedata();
-    } else if (e.target.classList.contains("edit")) {
-      let li = e.target.parentElement;
-      let currentText = li.firstChild.textContent;
-      let newText = prompt("Edit your task:", currentText);
-      if (newText !== null && newText.trim() !== "") {
-        li.childNodes[0].textContent = newText;
-        savedata();
-      }
-    }
-  },
-  false
-);
-
-function savedata() {
-  localStorage.setItem("data", listbox.innerHTML);
-}
-function showdata() {
-  listbox.innerHTML = localStorage.getItem("data");
-}
-showdata();
+loadData();
 
 function clearAllTasks() {
   if (confirm("Are you sure you want to delete all tasks?")) {
-    listbox.innerHTML = "";
-    localStorage.removeItem("data");
+    tasks = []; // Clear the in-memory task list
+    saveData(); // Update localStorage
+    renderTask(); // Re-render UI and update counters
   }
 }
