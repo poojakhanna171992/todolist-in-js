@@ -2,7 +2,14 @@ let inputBox = document.querySelector("#input-box");
 let listBox = document.querySelector("#list-container");
 let completedCounter = document.getElementById("completed-counter");
 let uncompletedCounter = document.getElementById("uncompleted-counter");
+let taskHeading = document.querySelector("#task-heading");
 
+function toggleHeading() {
+  let taskHeading = document.querySelector("#task-heading");
+  if (taskHeading) {
+    taskHeading.style.display = tasks.length === 0 ? "none" : "block";
+  }
+}
 let tasks = [];
 
 function addTask() {
@@ -69,6 +76,7 @@ function renderTask() {
     listBox.appendChild(li);
   });
   updateCounters();
+  toggleHeading();
 }
 
 function updateCounters() {
